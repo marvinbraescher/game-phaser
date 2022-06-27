@@ -39,6 +39,7 @@ function preload() {
 }
 
 function create() {
+    
     const map = this.make.tilemap({key: "map"});
     const tileset = map.addTilesetImage("assets", "tiles");
 
@@ -108,8 +109,16 @@ function create() {
 function update(){
     player.body.setVelocity(0);
     cursors = this.input.keyboard.createCursorKeys();
+   // kill = false;
   
-   
+   // this.physics.moveToObject(this.enemiesGroup, player, 100);
+ 
+   // console.log(kill)
+   //console.log(hitEnemy)
+    //console.log(player.x)
+    //console.log(this.enemies[0].x)
+    //console.log(this.enemiesGroup)
+    
     if (cursors.left.isDown) {
       player.body.setVelocityX(-200);
     } else if (cursors.right.isDown) {
@@ -136,6 +145,12 @@ function update(){
       }
 }
 
+function enemyFollow(player, enemiesGroup){
+  this.physics.moveToObject(this.enemiesGroup, this.player, 100);
+}
+
+
 function hitEnemy(player, enemyGroup) {
+// var kill = true;
   this.scene.restart();
 }

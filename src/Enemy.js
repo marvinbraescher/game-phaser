@@ -23,7 +23,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         })
     }
 
-    move(){
+  /*  move(){
         const randNumber = Math.floor(Math.random() * 4 + 1)
         switch(randNumber){
             case 1: 
@@ -49,7 +49,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
             },
             callbackScope: this,
         })
-    }
+    }*/
 
   
 
