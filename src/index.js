@@ -50,6 +50,7 @@ function create() {
     const aboveObject = map.createLayer("aboveObject", tileset, 0,0);
 
     objectCollider.setCollisionByProperty({"collider" : true});
+    ground.setCollisionByProperty({"collider" : true});
     aboveObject.setDepth(11);
     
     const spawnPoint = map.findObject(
@@ -59,13 +60,15 @@ function create() {
     )
 
     player = this.physics.add.sprite(spawnPoint.x,spawnPoint.y,"player");
-    
+    player.setCollideWorldBounds(true);
     this.physics.add.collider(player, objectCollider);
 
     this.enemies = map.createFromObjects("enemy", "enemy", {});
     this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies)
     
     this.physics.add.collider(this.enemiesGroup,objectCollider)
+    this.physics.add.collider(this.enemiesGroup,ground)
+    
     this.physics.add.collider(this.enemiesGroup, player, hitEnemy, null, this)
 
 
@@ -110,7 +113,7 @@ function update(){
     player.body.setVelocity(0);
     cursors = this.input.keyboard.createCursorKeys();
    // kill = false;
-  
+  //  console.log(this.enemies);
    // this.physics.moveToObject(this.enemiesGroup, player, 100);
  
    // console.log(kill)
