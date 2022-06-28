@@ -4,7 +4,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     constructor(scene,x ,y){
 
         //pegar nosso monstrinho chamado slime para aplicar no game
-        super(scene,x,y,'slime', 0)
+        super(scene,x,y,'player', 0)
         this.scene = scene
 
 
@@ -15,31 +15,32 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.scene.add.existing(this)
 
         //setting time to enemy moves
+        var delayS = 200;
         this.timeEvent = this.scene.time.addEvent({
-            delay: 3000,
+            delay: delayS,
             callback: this.move,
             loop: true,
             callbackScope: this
         })
     }
 
-  /*  move(){
+    move(){
         const randNumber = Math.floor(Math.random() * 4 + 1)
         switch(randNumber){
             case 1: 
-                this.setVelocityX(100)
+                this.setVelocityX(500)
                 break
             case 2: 
-                this.setVelocityX(-100)
+                this.setVelocityX(-500)
                 break
             case 3: 
-                this.setVelocityY(100)
+                this.setVelocityY(500)
                 break
             case 4: 
-                this.setVelocityY(-100)
+                this.setVelocityY(-500)
                 break
             default: 
-                this.setVelocityX(100)
+                this.setVelocityX(500)
         }
 
         this.scene.time.addEvent({
@@ -49,7 +50,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
             },
             callbackScope: this,
         })
-    }*/
+    }
 
   
 

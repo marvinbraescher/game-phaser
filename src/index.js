@@ -10,8 +10,9 @@ import Enemies from "./Emenies";
 const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
-  width: 600,
-  height:600,
+  backgroundColor: '#2d2d2d',
+  width: 650,
+  height:500,
   physics:{
       default:"arcade",
       arcade: {
@@ -28,7 +29,12 @@ const config = {
 const game = new Phaser.Game(config);
 let player;
 var cursors;
-var enemies;
+
+
+var c =0;
+var text;
+var timedEvent;
+
 function preload() {
     this.load.image("background", water);
     this.load.image("tiles", mapPNG);
@@ -66,7 +72,8 @@ function create() {
     this.enemies = map.createFromObjects("enemy", "enemy", {});
     this.enemiesGroup = new Enemies(this.physics.world, this, [], this.enemies)
     
-    this.physics.add.collider(this.enemiesGroup,objectCollider)
+    
+   // this.physics.add.collider(this.enemiesGroup,objectCollider)
     this.physics.add.collider(this.enemiesGroup,ground)
     
     this.physics.add.collider(this.enemiesGroup, player, hitEnemy, null, this)
@@ -108,20 +115,26 @@ function create() {
       camera.startFollow(player);
       camera.setZoom(1);
       camera.setBounds(0,0,map.withInPixels, map.heightInPixels);
+
+      text = this.add.text(400, 32, 'Click to create animations', { color: '#00ff00', fontSize: '20px' , fontFamily: 'Fantasy'})
+      .setOrigin(1.5, 0.5);
+    timedEvent = this.time.addEvent({ delay: 2000, callback: onEvent, callbackScope: this, loop: true });
+   
 }
 function update(){
+  text.setText('\nScore: ' + c);
     player.body.setVelocity(0);
     cursors = this.input.keyboard.createCursorKeys();
-   // kill = false;
-  //  console.log(this.enemies);
-   // this.physics.moveToObject(this.enemiesGroup, player, 100);
- 
-   // console.log(kill)
-   //console.log(hitEnemy)
-    //console.log(player.x)
-    //console.log(this.enemies[0].x)
-    //console.log(this.enemiesGroup)
     
+    //Score aumenta se estiver andando;
+
+    if(cursors.left.isDown ||cursors.right.isDown||cursors.up.isDown|| cursors.down.isDown){
+      timedEvent.paused = false;
+    }else{
+      timedEvent.paused = true;
+    }
+
+
     if (cursors.left.isDown) {
       player.body.setVelocityX(-200);
     } else if (cursors.right.isDown) {
@@ -146,14 +159,22 @@ function update(){
         player.anims.play("idle", true);
   
       }
+      
 }
 
-function enemyFollow(player, enemiesGroup){
+/*function enemyFollow(player, enemiesGroup){
   this.physics.moveToObject(this.enemiesGroup, this.player, 100);
+}*/
+
+function onEvent ()
+{
+   c++;
+ 
 }
 
 
 function hitEnemy(player, enemyGroup) {
-// var kill = true;
+  alert("your score is: " +c)
+  c=0;
   this.scene.restart();
 }
