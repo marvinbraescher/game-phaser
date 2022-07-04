@@ -4,7 +4,7 @@ import mapJSON from "./assets/map.json";
 import mapPNG from "./assets/tilemap.png";
 import water from "./assets/water.png";
 import playerPNG from"./assets/player.png";
-import enemyPNG from"./assets/player.png";
+import enemyPNG from"./assets/enemy.png";
 import Enemies from "./Emenies";
 
 const config = {
@@ -40,6 +40,7 @@ function preload() {
     this.load.image("tiles", mapPNG);
     this.load.tilemapTiledJSON("map", mapJSON);
     this.load.spritesheet("player",playerPNG, {frameWidth:32, frameHeight:32})
+    this.load.spritesheet("enemy",enemyPNG, {frameWidth:10, frameHeight:32})
     
 
 }
@@ -109,7 +110,16 @@ function create() {
         frames: anims.generateFrameNames("player",  { frames: [1]}),
         frameRate: 10,
         repeat: -1,
+        
       });
+      anims.create({
+        key: "idle",
+        frames: anims.generateFrameNames("enemy",  { frames: [1,2,3]}),
+        frameRate: 10,
+        repeat: -1,
+        
+      });
+
 
       var camera = this.cameras.main;
       camera.startFollow(player);
@@ -122,6 +132,7 @@ function create() {
    
 }
 function update(){
+
   text.setText('\nScore: ' + c);
     player.body.setVelocity(0);
     cursors = this.input.keyboard.createCursorKeys();

@@ -4,7 +4,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     constructor(scene,x ,y){
 
         //pegar nosso monstrinho chamado slime para aplicar no game
-        super(scene,x,y,'player', 0)
+        super(scene,x,y,'enemy', 0)
         this.scene = scene
 
 
